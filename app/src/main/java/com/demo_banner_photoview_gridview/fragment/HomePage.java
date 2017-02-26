@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * 类描述：
  * 创建人：xuyaxi
- * 创建时间：2017/7/26 9:46
+ * 创建时间：
  */
 public class HomePage extends Fragment {
 
@@ -64,7 +64,7 @@ public class HomePage extends Fragment {
             }
         });
 
-//        //进入屏道管理
+        //进入屏道管理
 //        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -77,7 +77,7 @@ public class HomePage extends Fragment {
 //                    ChannelBean b = new ChannelBean(lis.get(i), i < 10 ? true : false);
 //                    listbe.add(b);
 //                }
-//                ChannelActivity.startChannelActivity((AppCompatActivity) getActivity(),listbe);
+//                ChannelActivity.startChannelActivity((AppCompatActivity) getActivity(), listbe);
 //            }
 //        });
         return view;
