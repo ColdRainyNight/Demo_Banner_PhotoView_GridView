@@ -1,0 +1,37 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        applicationId "com.demo_banner_photoview_gridview"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+
+    compile 'com.youth.banner:banner:1.4.9'//无限轮播
+    compile 'com.google.code.gson:gson:2.8.0'//Gson解析
+    compile 'com.github.bumptech.glide:glide:4.0.0-RC0'//Glide图片加载
+    compile project(':xlistview')//上拉刷新下拉加载
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'//ImageLoder图片加载
+    compile 'com.android.support:design:25.3.1'//TabLayout滑动
+    compile 'org.xutils:xutils:3.5.0'//Xutils3.0网络请求
+    compile 'com.github.Chrisbanes:PhotoView:2.1.2'//图片缩放
+    compile 'com.github.yekh:draggrid:v1.0.1'//屏道管理
+    
+}
