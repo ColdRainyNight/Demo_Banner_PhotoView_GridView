@@ -1,11 +1,17 @@
 package com.demo_banner_photoview_gridview;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andy.library.ChannelActivity;
 import com.andy.library.ChannelBean;
@@ -62,13 +69,46 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initBannerView();
-        rg = (RadioGroup) findViewById(R.id.radioGroup);
-        addFragment();//添加数据
-        changeFragment();//改变数据
-        initText();
-        initLoad();
+        isNetworkAvailable(this);
+
     }
+    public boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivity = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo info = connectivity.getActiveNetworkInfo();
+            if (info != null && info.isConnected())
+            {
+                initBannerView();
+                rg = (RadioGroup) findViewById(R.id.radioGroup);
+                addFragment();//添加数据
+                changeFragment();//改变数据
+                initText();
+                initLoad();
+            }else {
+                new AlertDialog.Builder(MainActivity.this).setTitle("是否设置网络？")//设置对话框标题
+                        .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
+                                Intent wifiSettingsIntent = new Intent("android.settings.WIFI_SETTINGS");
+                                startActivity(wifiSettingsIntent);
+                            }
+
+                        }).setNegativeButton("返回",new DialogInterface.OnClickListener() {//添加返回按钮
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {//响应事件
+                        Toast.makeText(MainActivity.this,"当前无网络连接",Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+
+                }).show();//在按键响应事件中显示此对话框
+
+            }
+        }
+        return false;
+    }
+
+
     private void initLoad() {
         new Thread() {
             @Override
